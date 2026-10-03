@@ -78,7 +78,7 @@
       cursor: pointer
     }
 
-    /* COVER */
+    /* COVER + FOTO + TRANSISI TIRAI */
     #cover {
       position: fixed;
       inset: 0;
@@ -87,7 +87,7 @@
       text-align: center;
       color: var(--ink);
       background: radial-gradient(60% 40% at 15% 0%, var(--glow1), transparent 70%), radial-gradient(60% 40% at 90% 30%, var(--glow2), transparent 70%), var(--bg);
-      transition: opacity .7s ease
+      transition: opacity .8s ease
     }
 
     #cover:before {
@@ -97,11 +97,13 @@
       border: 1px solid rgba(194, 162, 97, .65);
       border-radius: 24px;
       pointer-events: none;
+      z-index: 5;
       transition: opacity .4s
     }
 
     .cv {
       position: relative;
+      z-index: 3;
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -212,6 +214,52 @@
       outline-offset: 3px
     }
 
+    /* Tirai hanya muncul ketika tombol ditekan.
+       Foto tetap menjadi cover awal dan TIDAK dipakai sebagai background transisi. */
+    .curtain-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0
+    }
+
+    .curtain {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      background: linear-gradient(90deg, #684866 0%, #9a6d88 45%, #5c415d 100%);
+      box-shadow: inset 0 0 55px rgba(0, 0, 0, .28);
+      overflow: hidden;
+      opacity: 0
+    }
+
+    .curtain:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(90deg,
+          rgba(255, 255, 255, .03) 0,
+          rgba(255, 255, 255, .03) 9px,
+          rgba(0, 0, 0, .14) 14px,
+          rgba(255, 255, 255, .06) 21px,
+          rgba(0, 0, 0, .08) 28px)
+    }
+
+    .curtain-left {
+      left: 0;
+      transform: translateX(0);
+      transform-origin: left center
+    }
+
+    .curtain-right {
+      right: 0;
+      transform: translateX(0);
+      transform-origin: right center
+    }
+
     #cover.open {
       pointer-events: none
     }
@@ -220,18 +268,58 @@
       opacity: 0
     }
 
-    #cover.open .cv>:not(.arch) {
+    /* Foto + teks hilang biasa; tidak diperbesar menjadi background */
+    #cover.open .cv {
       opacity: 0;
-      transform: translateY(-14px);
-      animation: none;
-      transition: opacity .35s, transform .35s
+      transform: scale(.98);
+      transition: opacity .35s ease, transform .35s ease
     }
 
-    #cover.open .arch {
-      animation: none;
-      border-radius: 0;
-      transform: scale(var(--s));
-      transition: transform 1.4s cubic-bezier(.7, 0, .2, 1), border-radius .9s ease
+    /* Tirai muncul sebentar lalu membuka ke kiri-kanan */
+    #cover.open .curtain-layer {
+      opacity: 1
+    }
+
+    #cover.open .curtain-left {
+      animation: curtainLeft 1.35s cubic-bezier(.77, 0, .18, 1) .05s forwards
+    }
+
+    #cover.open .curtain-right {
+      animation: curtainRight 1.35s cubic-bezier(.77, 0, .18, 1) .05s forwards
+    }
+
+    @keyframes curtainLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(0)
+      }
+
+      12% {
+        opacity: 1;
+        transform: translateX(0)
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(-100%)
+      }
+    }
+
+    @keyframes curtainRight {
+      0% {
+        opacity: 0;
+        transform: translateX(0)
+      }
+
+      12% {
+        opacity: 1;
+        transform: translateX(0)
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(100%)
+      }
     }
 
     #cover.fade {
@@ -246,8 +334,14 @@
         animation: none !important
       }
 
-      #cover.open .arch {
-        transition: none
+      #cover.open .curtain-left,
+      #cover.open .curtain-right {
+        animation: none;
+        transform: translateX(-100%)
+      }
+
+      #cover.open .curtain-right {
+        transform: translateX(100%)
       }
     }
 
@@ -514,7 +608,6 @@
         display: none
       }
 
-      .arch,
       .hrt {
         animation: none
       }
@@ -704,6 +797,11 @@
 <body>
 
   <section id="cover">
+    <div class="curtain-layer" aria-hidden="true">
+      <div class="curtain curtain-left"></div>
+      <div class="curtain curtain-right"></div>
+    </div>
+
     <div class="cv">
       <p class="sm">Dari sahabat yang sudah seperti saudara untuk</p>
       <div class="arch" id="arch"></div>
@@ -742,8 +840,8 @@
     /* ===== ISI DI SINI (cukup ubah bagian ini saja) ===== */
     var CONFIG = {
       couple: "Syifa & Fadil",
-      date: "10 Oktober 2026",                 // ganti tanggal pernikahan
-      coverPhoto: "foto/5.png",                        // contoh: "foto/cover.jpg"
+      date: "4 Oktober 2026",                 // ganti tanggal pernikahan
+      coverPhoto: "foto/5.png",                        // foto cover pengantin
       song: "musik/lagu.mp3",             // file lagu, kosongkan "" untuk melodi piano bawaan
       photos: [                              // foto bareng: taruh file di folder foto/
         { src: "foto/1.jpeg", caption: "Kenangan kita" },   // contoh: {src:"foto/1.jpg", caption:"Kenangan kita"}
@@ -801,9 +899,11 @@ Inget, rumus rumah tangga bagja mah gampang: Salaki kudu sabar, pamajikan sok be
 
         {
           name: "Alia",
-          text: `Wilujeng nikah, Dil sareng istri !
+          text: `happy wedding kutil dan cipoooo, 2 org yg aku kenal dari orokkkkk huhuhu ga nyangka bgt ternyata jodoh sedekat ini yaaaaaa🥹
 
-Inget, rumus rumah tangga bagja mah gampang: Salaki kudu sabar, pamajikan sok bener salawasna. Lamun pamajikan keur salah, balik deui kana aturan kahiji. Wilujeng mapag kabingah, sing janten keluarga anu mawadah, sakinah, warohmah!`
+selamat menempuh hidup baru semoga menjadi keluarga yg sakinah mawaddah warahmahhh dipenuhi kebahagiaan dan dikaruniai anak anak yg cantikkkk😍
+
+bikin yg banyak yaaaa!!! Aku siap menjadi rich ounty😙💅😚💅`
         }
       ]
     };
@@ -813,8 +913,16 @@ Inget, rumus rumah tangga bagja mah gampang: Salaki kudu sabar, pamajikan sok be
       (function () {
         var h1 = $('couple'), pt = CONFIG.couple.split('&'); h1.appendChild(document.createTextNode(pt[0].trim()));
         if (pt.length > 1) { var a = document.createElement('span'); a.className = 'amp'; a.textContent = '&'; h1.appendChild(a); h1.appendChild(document.createTextNode(pt.slice(1).join('&').trim())); }
-      })(); $('couple2').textContent = CONFIG.couple; $('date').textContent = CONFIG.date;
-      if (CONFIG.coverPhoto) $('arch').style.backgroundImage = 'url("' + CONFIG.coverPhoto + '")';
+      })();
+
+      $('couple2').textContent = CONFIG.couple;
+      $('date').textContent = CONFIG.date;
+
+      // Pasang foto pengantin di cover awal. Foto TIDAK dipakai sebagai background transisi.
+      if (CONFIG.coverPhoto) {
+        $('arch').style.backgroundImage = 'url("' + CONFIG.coverPhoto + '")';
+      }
+
       CONFIG.photos.forEach(function (f) {
         var c = document.createElement('div'); c.className = 'card gi';
         var pol = document.createElement('div'); pol.className = 'pol';
@@ -900,14 +1008,20 @@ Inget, rumus rumah tangga bagja mah gampang: Salaki kudu sabar, pamajikan sok be
         document.querySelectorAll('.rv').forEach(function (e) { io.observe(e) });
       }
       $('openBtn').addEventListener('click', function () {
-        var r = $('arch').getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2,
-          sx = Math.max(cx, innerWidth - cx) / (r.width / 2), sy = Math.max(cy, innerHeight - cy) / (r.height / 2);
-        cover.style.setProperty('--s', (Math.max(sx, sy) * 1.12).toFixed(2));
-        cover.classList.add('open'); window.scrollTo(0, 0);
-        music.classList.add('show'); play();
+        cover.classList.add('open');
+        window.scrollTo(0, 0);
+        music.classList.add('show');
+        play();
+
         setTimeout(startFx, 900);
-        setTimeout(function () { cover.classList.add('fade') }, 1050);
-        setTimeout(function () { cover.style.display = 'none' }, 1900);
+
+        setTimeout(function () {
+          cover.classList.add('fade');
+        }, 1450);
+
+        setTimeout(function () {
+          cover.style.display = 'none';
+        }, 2200);
       });
       music.addEventListener('click', function () { isPlaying() ? pause() : play() });
     })();
