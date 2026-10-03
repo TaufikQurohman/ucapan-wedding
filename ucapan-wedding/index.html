@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ucapan untuk Pengantin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Nunito+Sans:wght@400;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F6F3FA;
+      --paper: #FFFFFF;
+      --ink: #171E3B;
+      --muted: #626A88;
+      --rose: #E9A9BC;
+      --peri: #7B89CF;
+      --gold: #C2A261;
+      --night: #111833;
+      --glow1: #F6D5E0;
+      --glow2: #D9DEF6;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px)
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0E1428;
+        --paper: #1A2342;
+        --ink: #F1EEF8;
+        --muted: #A9B0CC;
+        --glow1: #3A2540;
+        --glow2: #1F2A57
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0E1428;
+      --paper: #1A2342;
+      --ink: #F1EEF8;
+      --muted: #A9B0CC;
+      --glow1: #3A2540;
+      --glow2: #1F2A57
+    }
+
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px)
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      font-family: 'Nunito Sans', system-ui, sans-serif;
+      line-height: 1.75;
+      background: radial-gradient(60% 40% at 15% 0%, var(--glow1), transparent 70%), radial-gradient(60% 40% at 90% 30%, var(--glow2), transparent 70%), var(--bg);
+      background-attachment: fixed
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: 'Cormorant Garamond', Georgia, serif
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer
+    }
+
+    /* COVER */
+    #cover {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      overflow: hidden;
+      text-align: center;
+      color: var(--ink);
+      background: radial-gradient(60% 40% at 15% 0%, var(--glow1), transparent 70%), radial-gradient(60% 40% at 90% 30%, var(--glow2), transparent 70%), var(--bg);
+      transition: opacity .7s ease
+    }
+
+    #cover:before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(194, 162, 97, .65);
+      border-radius: 24px;
+      pointer-events: none;
+      transition: opacity .4s
+    }
+
+    .cv {
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 28px 20px
+    }
+
+    .cv>* {
+      animation: up .9s cubic-bezier(.2, .7, .2, 1) both
+    }
+
+    .cv>:nth-child(3) {
+      animation-delay: .3s
+    }
+
+    .cv>:nth-child(4) {
+      animation-delay: .42s
+    }
+
+    .cv>:nth-child(5) {
+      animation-delay: .54s
+    }
+
+    @keyframes up {
+      from {
+        opacity: 0;
+        transform: translateY(22px)
+      }
+    }
+
+    .sm {
+      font-size: 15px;
+      color: var(--muted);
+      margin: 0
+    }
+
+    .arch {
+      width: min(56vw, 240px, 26vh);
+      aspect-ratio: 3/4;
+      border-radius: 999px 999px 12px 12px;
+      background: linear-gradient(160deg, #B9C2EE, #F2C4D0);
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 0 0 6px var(--bg), 0 0 0 7.5px var(--gold), 0 24px 48px rgba(23, 30, 59, .22);
+      margin: 8px 0;
+      animation: up .9s cubic-bezier(.2, .7, .2, 1) .12s both, flo 6s ease-in-out 1.2s infinite
+    }
+
+    .cv h1 {
+      font-size: clamp(44px, 13vw, 72px);
+      font-style: italic;
+      font-weight: 500;
+      line-height: 1.05
+    }
+
+    .cv h1 .amp {
+      color: var(--rose);
+      font-weight: 400;
+      padding: 0 .1em
+    }
+
+    .cv .dt {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: .04em
+    }
+
+    #openBtn {
+      position: relative;
+      margin-top: 10px;
+      border: 0;
+      color: #fff;
+      background: linear-gradient(135deg, var(--peri), #D98BA6);
+      border-radius: 999px;
+      padding: 13px 40px;
+      font-weight: 600;
+      font-size: 16px;
+      box-shadow: 0 10px 24px rgba(123, 137, 207, .4)
+    }
+
+    #openBtn:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 1.5px solid var(--peri);
+      animation: ring 2.2s ease-out 1.4s infinite
+    }
+
+    @keyframes ring {
+      from {
+        opacity: .7;
+        transform: scale(1)
+      }
+
+      to {
+        opacity: 0;
+        transform: scale(1.4)
+      }
+    }
+
+    #openBtn:focus-visible,
+    #music:focus-visible {
+      outline: 3px solid var(--rose);
+      outline-offset: 3px
+    }
+
+    #cover.open {
+      pointer-events: none
+    }
+
+    #cover.open:before {
+      opacity: 0
+    }
+
+    #cover.open .cv>:not(.arch) {
+      opacity: 0;
+      transform: translateY(-14px);
+      animation: none;
+      transition: opacity .35s, transform .35s
+    }
+
+    #cover.open .arch {
+      animation: none;
+      border-radius: 0;
+      transform: scale(var(--s));
+      transition: transform 1.4s cubic-bezier(.7, 0, .2, 1), border-radius .9s ease
+    }
+
+    #cover.fade {
+      opacity: 0
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      .cv>*,
+      .arch,
+      #openBtn:after {
+        animation: none !important
+      }
+
+      #cover.open .arch {
+        transition: none
+      }
+    }
+
+    /* ISI */
+    main {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 64px 22px 96px
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 56px
+    }
+
+    .intro .for {
+      margin: 0 0 10px;
+      color: var(--muted)
+    }
+
+    .intro h2 {
+      font-size: clamp(38px, 10vw, 54px);
+      font-style: italic;
+      font-weight: 500;
+      line-height: 1.1
+    }
+
+    .intro .ln {
+      width: 56px;
+      height: 1.5px;
+      background: var(--gold);
+      margin: 20px auto
+    }
+
+    .intro .sub {
+      margin: 0 auto;
+      max-width: 36ch;
+      color: var(--muted)
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 64px
+    }
+
+    .pol {
+      position: relative;
+      width: min(100%, 320px);
+      background: #fff;
+      padding: 12px 12px 50px;
+      border-radius: 4px;
+      box-shadow: 0 14px 34px rgba(23, 30, 59, .18);
+      --r: -1.5deg;
+      transform: rotate(var(--r))
+    }
+
+    .card:nth-child(even) .pol {
+      --r: 1.5deg
+    }
+
+    .pol:before {
+      content: "";
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      width: 80px;
+      height: 24px;
+      margin-left: -40px;
+      background: rgba(233, 169, 188, .75)
+    }
+
+    .ph {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      background: linear-gradient(145deg, #B9C2EE, #F2C4D0)
+    }
+
+    .ph.empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font: italic 600 96px 'Cormorant Garamond', serif;
+      color: rgba(255, 255, 255, .9)
+    }
+
+    .cap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 10px;
+      text-align: center;
+      font: 600 28px 'Caveat', cursive;
+      color: #2B3358;
+      line-height: 1.2
+    }
+
+    .note {
+      position: relative;
+      width: 100%;
+      margin-top: 30px;
+      background: var(--paper);
+      border: 1px solid rgba(142, 155, 218, .28);
+      border-radius: 14px;
+      padding: 44px 26px 26px;
+      text-align: center
+    }
+
+    .note:before {
+      content: "\201C";
+      position: absolute;
+      top: 10px;
+      left: 0;
+      right: 0;
+      font: italic 600 54px/1 'Cormorant Garamond', serif;
+      color: var(--rose)
+    }
+
+    .note p {
+      margin: 0;
+      white-space: pre-line;
+      font-size: 16.5px
+    }
+
+    .end {
+      text-align: center
+    }
+
+    .end h2 {
+      font-size: clamp(34px, 9vw, 46px);
+      font-style: italic;
+      font-weight: 500;
+      margin-bottom: 6px
+    }
+
+    .end p {
+      margin: 0;
+      color: var(--muted)
+    }
+
+    .end .by {
+      margin: 20px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px 18px;
+      justify-content: center;
+      font: 600 24px 'Caveat', cursive;
+      color: var(--peri)
+    }
+
+    .rv {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .9s ease, transform .9s cubic-bezier(.2, .7, .2, 1)
+    }
+
+    .rv.in {
+      opacity: 1;
+      transform: none
+    }
+
+    .card.rv {
+      opacity: 1;
+      transform: none
+    }
+
+    .card.rv .pol {
+      opacity: 0;
+      transform: translateY(60px) rotate(calc(var(--r)*4));
+      transition: opacity .8s ease, transform 1s cubic-bezier(.2, .8, .2, 1)
+    }
+
+    .card.rv .note {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .8s ease .35s, transform .8s ease .35s
+    }
+
+    .card.rv.in .pol {
+      opacity: 1;
+      transform: rotate(var(--r))
+    }
+
+    .card.rv.in .note {
+      opacity: 1;
+      transform: none
+    }
+
+    @keyframes flo {
+      50% {
+        transform: translateY(-7px)
+      }
+    }
+
+    .hrt {
+      font-size: 34px;
+      line-height: 1;
+      color: var(--rose);
+      margin-bottom: 6px;
+      animation: beat 1.8s ease-in-out infinite
+    }
+
+    @keyframes beat {
+
+      0%,
+      100% {
+        transform: scale(1)
+      }
+
+      15% {
+        transform: scale(1.25)
+      }
+
+      30% {
+        transform: scale(1)
+      }
+
+      45% {
+        transform: scale(1.18)
+      }
+    }
+
+    #petals {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 30;
+      overflow: hidden
+    }
+
+    .pt {
+      position: absolute;
+      top: 0;
+      border-radius: 70% 0 70% 0;
+      opacity: 0;
+      animation: fall linear infinite
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translate3d(0, -6vh, 0) rotate(0);
+        opacity: 0
+      }
+
+      10% {
+        opacity: .6
+      }
+
+      90% {
+        opacity: .45
+      }
+
+      100% {
+        transform: translate3d(var(--dx), 108vh, 0) rotate(560deg);
+        opacity: 0
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      #petals {
+        display: none
+      }
+
+      .arch,
+      .hrt {
+        animation: none
+      }
+
+      .rv,
+      .rv.in {
+        opacity: 1;
+        transform: none;
+        transition: none
+      }
+
+      .card.rv .pol {
+        opacity: 1;
+        transform: rotate(var(--r));
+        transition: none
+      }
+
+      .card.rv .note {
+        opacity: 1;
+        transform: none;
+        transition: none
+      }
+    }
+
+    .gal {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px 16px;
+      margin-bottom: 76px;
+      align-items: start
+    }
+
+    .gal .card:nth-child(even) {
+      margin-top: 36px
+    }
+
+    .card.gi {
+      margin-bottom: 0
+    }
+
+    .gi .pol {
+      width: 100%;
+      padding: 8px 8px 36px
+    }
+
+    .gi .pol:before {
+      width: 56px;
+      height: 18px;
+      top: -9px;
+      margin-left: -28px
+    }
+
+    .gi .ph {
+      aspect-ratio: 3/4
+    }
+
+    .gi .ph.empty {
+      font-size: 46px
+    }
+
+    .gi .cap {
+      font-size: 20px;
+      bottom: 6px
+    }
+
+    .card.rv.in .pol {
+      animation: sway 7s ease-in-out 1.3s infinite
+    }
+
+    .gal .card:nth-child(even).rv.in .pol {
+      animation-delay: 2.1s;
+      animation-duration: 8s
+    }
+
+    @keyframes sway {
+
+      0%,
+      100% {
+        transform: rotate(var(--r))
+      }
+
+      50% {
+        transform: translateY(-7px) rotate(calc(var(--r)*.3))
+      }
+    }
+
+    .mh {
+      text-align: center;
+      margin-bottom: 34px
+    }
+
+    .mh h2 {
+      font-size: clamp(34px, 9vw, 46px);
+      font-style: italic;
+      font-weight: 500;
+      line-height: 1.1
+    }
+
+    .mh .ln {
+      width: 56px;
+      height: 1.5px;
+      background: var(--gold);
+      margin: 16px auto 0
+    }
+
+    .card.msg {
+      margin-bottom: 22px
+    }
+
+    .msg .note {
+      margin-top: 0
+    }
+
+    .msg .nm {
+      margin-top: 14px;
+      font: 600 26px/1.2 'Caveat', cursive;
+      color: var(--peri)
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      .card.rv.in .pol {
+        animation: none
+      }
+    }
+
+    /* MUSIK */
+    #music {
+      position: fixed;
+      right: 16px;
+      bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+      z-index: 10;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      background: var(--night);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 3px
+    }
+
+    #music.show {
+      display: flex
+    }
+
+    #music i {
+      width: 3px;
+      height: 6px;
+      background: #fff;
+      border-radius: 2px
+    }
+
+    #music.on i {
+      animation: eq .9s ease-in-out infinite
+    }
+
+    #music.on i:nth-child(2) {
+      animation-delay: .2s
+    }
+
+    #music.on i:nth-child(3) {
+      animation-delay: .4s
+    }
+
+    @keyframes eq {
+      50% {
+        height: 18px
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      .pn,
+      .cv {
+        transition: none
+      }
+
+      #music.on i {
+        animation: none;
+        height: 12px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section id="cover">
+    <div class="cv">
+      <p class="sm">Dari sahabat yang sudah seperti saudara untuk</p>
+      <div class="arch" id="arch"></div>
+      <h1 id="couple"></h1>
+      <p class="dt" id="date"></p>
+      <button id="openBtn">Buka ucapan</button>
+    </div>
+  </section>
+
+  <main>
+    <div class="intro">
+      <p class="for">Untuk <span id="couple2"></span></p>
+      <h2>Selamat menempuh hidup baru</h2>
+      <div class="ln"></div>
+      <p class="sub">Kalian bukan cuma sahabat, tapi sudah seperti saudara sendiri bagi kami. Ini doa dan cerita dari
+        kami berenam.</p>
+    </div>
+    <div class="gal" id="gal"></div>
+    <div class="mh">
+      <h2>Ucapan dari kami</h2>
+      <div class="ln"></div>
+    </div>
+    <div id="list"></div>
+    <div class="end">
+      <div class="hrt">♥</div>
+      <h2>Bahagia selalu, saudara kami</h2>
+      <p>Kami selalu ada untuk kalian.</p>
+    </div>
+  </main>
+
+  <div id="petals" aria-hidden="true"></div>
+  <button id="music" aria-label="Putar atau jeda musik"><i></i><i></i><i></i></button>
+  <audio id="song" loop preload="auto"></audio>
+
+  <script>
+    /* ===== ISI DI SINI (cukup ubah bagian ini saja) ===== */
+    var CONFIG = {
+      couple: "Syifa & Fadil",
+      date: "4 Oktober 2026",                 // ganti tanggal pernikahan
+      coverPhoto: "foto/5.png",                        // contoh: "foto/cover.jpg"
+      song: "musik/lagu.mp3",             // file lagu, kosongkan "" untuk melodi piano bawaan
+      photos: [                              // foto bareng: taruh file di folder foto/
+        { src: "foto/1.jpeg", caption: "Kenangan kita" },   // contoh: {src:"foto/1.jpg", caption:"Kenangan kita"}
+        { src: "foto/2.jpeg", caption: "Selalu bersama" },
+        { src: "foto/3.jpeg", caption: "Tertawa lepas" },
+        { src: "foto/4.jpeg", caption: "Hari itu" }
+      ],
+      messages: [
+        {
+          name: "Taufik",
+          text: `Selamat menempuh hidup baru, Dil.
+
+Semoga Adil dan Syifa menjadi keluarga yang sakinah, mawaddah, warahmah. Semoga selalu saling melengkapi, saling menguatkan, dan saling memahami.
+
+Semoga pernikahannya dipenuhi kebahagiaan, keberkahan, dan rezeki yang lancar. Langgeng terus sampai tua yaa!
+
+Ur brother, Taufik`
+        },
+
+        {
+          name: "Desi",
+          text: `Wishing you a lifetime filled with love, laughter, and happiness. Congratulations on your wedding anak termuda di famsq -desy-`
+        },
+
+        {
+          name: "Ulfi",
+          text: `Dear Adiiillll,
+
+Ga expect sih secepet iniii adil mau nikah, Upi masih liat adil sebagai bocil😅 ternyata, how time flies so fast, Adil udah dewasa yaa...
+
+Selamat menjalani kehidupan baru yaa Adil with ur lovely partner. Semoga menjadi pasangan yg saling mengerti, saling memahami, saling segalanya sampai grey and old together🫶🏻
+
+With love, Ulfi.`
+        },
+
+        {
+          name: "Syifa",
+          text: `Who would've thought, the little boy I grew up with is now getting married. 🥹🤍
+
+walaupun aku di duluin, jujur masih kit heart but its okey
+
+Semoga pernikahanmu selalu dipenuhi cinta, kebahagiaan, dan keberkahan. May you and your partner always find happiness in each other and grow together through every season of life.
+
+From childhood memories to this beautiful moment, I'm truly happy to see how far you've come. Selamat menempuh hidup baru! 🤍
+
+tetap jadi adil kecil yg baik yawww🥰`
+        },
+
+        {
+          name: "Hilmi",
+          text: `Wilujeng nikah, Dil sareng istri !
+
+Inget, rumus rumah tangga bagja mah gampang: Salaki kudu sabar, pamajikan sok bener salawasna. Lamun pamajikan keur salah, balik deui kana aturan kahiji. Wilujeng mapag kabingah, sing janten keluarga anu mawadah, sakinah, warohmah!`
+        },
+
+        {
+          name: "Alia",
+          text: `Wilujeng nikah, Dil sareng istri !
+
+Inget, rumus rumah tangga bagja mah gampang: Salaki kudu sabar, pamajikan sok bener salawasna. Lamun pamajikan keur salah, balik deui kana aturan kahiji. Wilujeng mapag kabingah, sing janten keluarga anu mawadah, sakinah, warohmah!`
+        }
+      ]
+    };
+    /* ======================== */
+    (function () {
+      var $ = function (i) { return document.getElementById(i) }, cover = $('cover'), song = $('song'), music = $('music'), list = $('list');
+      (function () {
+        var h1 = $('couple'), pt = CONFIG.couple.split('&'); h1.appendChild(document.createTextNode(pt[0].trim()));
+        if (pt.length > 1) { var a = document.createElement('span'); a.className = 'amp'; a.textContent = '&'; h1.appendChild(a); h1.appendChild(document.createTextNode(pt.slice(1).join('&').trim())); }
+      })(); $('couple2').textContent = CONFIG.couple; $('date').textContent = CONFIG.date;
+      if (CONFIG.coverPhoto) $('arch').style.backgroundImage = 'url("' + CONFIG.coverPhoto + '")';
+      CONFIG.photos.forEach(function (f) {
+        var c = document.createElement('div'); c.className = 'card gi';
+        var pol = document.createElement('div'); pol.className = 'pol';
+        var ph;
+        if (f.src) { ph = document.createElement('img'); ph.className = 'ph'; ph.src = f.src; ph.alt = f.caption || 'Foto bersama'; }
+        else { ph = document.createElement('div'); ph.className = 'ph empty'; ph.textContent = '\u2665'; }
+        pol.appendChild(ph);
+        if (f.caption) { var cap = document.createElement('div'); cap.className = 'cap'; cap.textContent = f.caption; pol.appendChild(cap); }
+        c.appendChild(pol); $('gal').appendChild(c);
+      });
+      CONFIG.messages.forEach(function (m) {
+        var c = document.createElement('article'); c.className = 'card msg';
+        var n = document.createElement('div'); n.className = 'note';
+        var p = document.createElement('p'); p.textContent = m.text;
+        var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = m.name;
+        n.appendChild(p); n.appendChild(nm); c.appendChild(n); list.appendChild(c);
+      });
+
+      /* Melodi piano bawaan: progresi akor klasik (domain publik), dibuat langsung di browser */
+      var Synth = (function () {
+        var ctx, out, timer, step = 0, next = 0, on = false;
+        var F = function (n) { return 440 * Math.pow(2, (n - 69) / 12) };
+        var CH = [[50, 54, 57], [45, 49, 52], [47, 50, 54], [42, 45, 49], [43, 47, 50], [50, 54, 57], [43, 47, 50], [45, 49, 52]];
+        var PAT = [0, 1, 2, 1, 2, 1, 0, 1];
+        var MEL = [74, 0, 73, 0, 69, 0, 0, 0, 0, 0, 69, 0, 71, 73, 0, 0];
+        function tone(f, t, d, v, type) {
+          var o = ctx.createOscillator(), g = ctx.createGain();
+          o.type = type; o.frequency.value = f;
+          g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + .015); g.gain.exponentialRampToValueAtTime(.0001, t + d);
+          o.connect(g); g.connect(out); o.start(t); o.stop(t + d + .05);
+        }
+        function sched() {
+          var beat = 60 / 66 / 2;
+          while (next < ctx.currentTime + .4) {
+            var bar = Math.floor(step / 8) % CH.length, i = step % 8, ch = CH[bar];
+            var note = ch[PAT[i]] + 12;
+            tone(F(note), next, 1.6, .11, 'triangle');
+            if (i === 0) tone(F(ch[0] - 12), next, 3.2, .16, 'sine');
+            var mi = (step % 16) + ((Math.floor(step / 16) % 2) * 0);
+            if (bar % 2 === 0 && MEL[step % 16] && Math.floor(step / 8) % 8 < 8 && false) { }
+            if (i === 4 && bar % 2 === 0) tone(F(ch[2] + 24), next, 2, .05, 'sine');
+            next += beat; step++;
+          }
+        }
+        return {
+          start: function () {
+            if (!ctx) {
+              ctx = new (window.AudioContext || window.webkitAudioContext)();
+              var m = ctx.createGain(); m.gain.value = .9;
+              var lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2200;
+              var d = ctx.createDelay(); d.delayTime.value = .32; var fb = ctx.createGain(); fb.gain.value = .38;
+              var wet = ctx.createGain(); wet.gain.value = .35;
+              out = ctx.createGain();
+              out.connect(lp); lp.connect(m); m.connect(ctx.destination);
+              lp.connect(d); d.connect(fb); fb.connect(d); d.connect(wet); wet.connect(ctx.destination);
+            }
+            ctx.resume(); on = true; next = ctx.currentTime + .1;
+            clearInterval(timer); timer = setInterval(sched, 120); sched();
+          },
+          stop: function () { on = false; clearInterval(timer); if (ctx) ctx.suspend(); },
+          get playing() { return on }
+        };
+      })();
+
+      var useFile = !!CONFIG.song;
+      if (useFile) song.src = CONFIG.song;
+      function setOn(v) { music.classList.toggle('on', v) }
+      function play() { if (useFile) { song.play().then(function () { setOn(true) }).catch(function () { setOn(false) }) } else { Synth.start(); setOn(true) } }
+      function pause() { if (useFile) song.pause(); else Synth.stop(); setOn(false) }
+      function isPlaying() { return useFile ? !song.paused : Synth.playing }
+
+      document.querySelectorAll('.card,.intro,.end,.mh').forEach(function (e) { e.classList.add('rv') });
+      (function () {
+        var P = $('petals'), cols = ['#E9A9BC', '#F2C4D0', '#8E9BDA', '#C2A261'];
+        for (var i = 0; i < 16; i++) {
+          var p = document.createElement('span'), s = 8 + Math.random() * 8;
+          p.className = 'pt'; p.style.cssText = 'left:' + (Math.random() * 100) + '%;width:' + s + 'px;height:' + (s * 1.3) + 'px;background:' + cols[i % 4] + ';animation-duration:' + (13 + Math.random() * 12) + 's;animation-delay:-' + (Math.random() * 20) + 's;--dx:' + ((Math.random() * 160) - 80) + 'px';
+          P.appendChild(p);
+        }
+      })();
+      function startFx() {
+        var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target) } }) }, { threshold: .2 });
+        document.querySelectorAll('.rv').forEach(function (e) { io.observe(e) });
+      }
+      $('openBtn').addEventListener('click', function () {
+        var r = $('arch').getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2,
+          sx = Math.max(cx, innerWidth - cx) / (r.width / 2), sy = Math.max(cy, innerHeight - cy) / (r.height / 2);
+        cover.style.setProperty('--s', (Math.max(sx, sy) * 1.12).toFixed(2));
+        cover.classList.add('open'); window.scrollTo(0, 0);
+        music.classList.add('show'); play();
+        setTimeout(startFx, 900);
+        setTimeout(function () { cover.classList.add('fade') }, 1050);
+        setTimeout(function () { cover.style.display = 'none' }, 1900);
+      });
+      music.addEventListener('click', function () { isPlaying() ? pause() : play() });
+    })();
+  </script>
+</body>
+
+</html>
